@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'found',
+    'images',
     'lost',
     'user',
 ]
@@ -91,3 +92,16 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+
+MODELS = os.path.join(BASE_DIR, 'found/models')
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'Prediction.throttles.LimitedRateThrottle',
+        'Prediction.throttles.BurstRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'limited': '2/min',
+        'burst': '10/min'
+    }
+}
