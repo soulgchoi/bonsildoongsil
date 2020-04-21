@@ -93,12 +93,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MODELS = os.path.join(BASE_DIR, 'found/models')
+MODELS = os.path.join(BASE_DIR, 'images/models')
 
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': [
-        'Prediction.throttles.LimitedRateThrottle',
-        'Prediction.throttles.BurstRateThrottle'
+        'images.throttles.LimitedRateThrottle',
+        'images.throttles.BurstRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
         'limited': '2/min',
