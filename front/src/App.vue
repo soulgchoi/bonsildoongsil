@@ -21,6 +21,7 @@ export default {
     return{
       width:"10px",
       height:"10px",
+      color:"black",
     }
   }
 };
