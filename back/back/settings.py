@@ -11,7 +11,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '22bce5a9.ngrok.io', '[::1]']
+ALLOWED_HOSTS = ['13.125.33.242']
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -20,6 +20,9 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
     'http://149cf7cc.ngrok.io',
+    'http://f22b3bca.ngrok.io',
+    'http://localhost:80',
+    'http://127.0.0.1:80',
 ]
 
 REST_FRAMEWORK = {
@@ -126,10 +129,14 @@ USE_TZ = False
 AUTH_USER_MODEL = 'accounts.User'
 
 STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [ STATIC_DIR, ]
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CACHES = {
     'default': {

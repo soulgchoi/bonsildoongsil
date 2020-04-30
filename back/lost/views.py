@@ -179,7 +179,7 @@ def get_lost_list_admin(request):
 
     datasets = {
         'meta': {
-            'total_cnt': posting.count(),
+            'total': posting.count(),
         },
         'documents': serializer.data
     }

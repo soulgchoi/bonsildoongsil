@@ -54,7 +54,7 @@ def search_found(request):
 
     datasets = {
         'meta': {
-            'total_cnt': posting_set.count()
+            'total': posting_set.count()
         },
         'documents': serializer.data
     }
@@ -168,14 +168,16 @@ def create_found(request):
                       f'감사합니다.'
 
             recipient_list = email_list
-            send_mail(subject, message, EMAIL_HOST_USER, recipient_list, html_message=message)
+
+            if email_list:
+                send_mail(subject, message, EMAIL_HOST_USER, recipient_list, html_message=message)
 
         posting_serializer = FoundPostingDetailSerializer(posting)
         return Response(status=200, data=posting_serializer.data)
     return Response(status=400, data={'message': 'Invalid input'})
 
 
-@cache_page(60 * 2)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_found_list(request):
@@ -192,7 +194,7 @@ def get_user_found_list(request):
     return Response(status=200, data=datasets)
 
 
-@cache_page(60 * 2)
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_found_detail(request, found_id):
