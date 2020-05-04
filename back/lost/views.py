@@ -73,6 +73,18 @@ def create_lost(request):
 
         posting.save()
 
+        
+        if posting.email:
+            subject = f'[분실둥실] 새로운 분실물  게시글이 등록되었습니다.'
+            message = f'잃어버린 물건 생각이 뭉게뭉게 날 때, 분실물 클라우드 분실둥실 입니다.'\
+                      f'새로 등록 된 게시글에 로그인하기 위한 아이디는 {posting.lostname} 입니다.'\
+                      f'감사합니다.'
+
+            recipient_list = [posting.email]
+            send_mail(subject, message, EMAIL_HOST_USER, recipient_list, html_message=message)
+
+        
+        
         if data.get('image_id'):
             thumbnail = get_object_or_404(LostThumbnail, id=data['image_id'])
             thumbnail.posting_id = posting.id

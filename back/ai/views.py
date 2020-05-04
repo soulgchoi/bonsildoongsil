@@ -77,6 +77,7 @@ def get_similar_image(lost_image, origin_images):
     origin_image_features = []
     for origin_image in origin_images:
         real_numpy_path = os.path.join(settings.MEDIA_ROOT, origin_image.numpy_path)
+        # print(real_numpy_path)
         origin_image_feature = np.load(real_numpy_path)
         origin_ids.append(origin_image.id)
         origin_image_features.append(origin_image_feature)
@@ -95,11 +96,15 @@ def get_similar_image(lost_image, origin_images):
     features = sc.fit_transform(origin_image_features)
 
     dists = distance.squareform(distance.pdist(features, "cosine"))
-
+    # print(dists)
+    # print(dists[0])
+    # similar_order = np.argsort(dists[0]).tolist()
     similar_order = dists[0].argsort().tolist()
+    # print('so', similar_order)
+    # print('origin_id', origin_ids)
     similar_order.reverse()
 
-    first, second, third = similar_order[0], similar_order[1], similar_order[2]
+    first, second, third = origin_ids[similar_order[0]], origin_ids[similar_order[1]], origin_ids[similar_order[2]]
     
     images_id_result = [int(first), int(second), int(third)]
 

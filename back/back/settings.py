@@ -11,7 +11,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['13.125.33.242']
+ALLOWED_HOSTS = ['13.125.33.242', '[::1]', 'localhost', '127.0.0.1']
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -19,11 +19,33 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
-    'http://149cf7cc.ngrok.io',
-    'http://f22b3bca.ngrok.io',
-    'http://localhost:80',
-    'http://127.0.0.1:80',
+    'http://i02a405.p.ssafy.io',
 ]
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'access-control-request-method',
+    'access-control-request-headers',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -44,6 +66,9 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
 }
+
+
+REST_USE_JWT = True
 
 
 INSTALLED_APPS = [
@@ -128,6 +153,8 @@ USE_TZ = False
 
 AUTH_USER_MODEL = 'accounts.User'
 
+ROOT_DIR = os.path.dirname(BASE_DIR)
+
 STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [ STATIC_DIR, ]
@@ -136,7 +163,7 @@ STATICFILES_DIRS = [ STATIC_DIR, ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'staticfiles')
 
 CACHES = {
     'default': {
